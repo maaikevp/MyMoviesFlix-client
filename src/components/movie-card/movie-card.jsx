@@ -1,5 +1,9 @@
 
+// Here you import the PropTypes library
+import PropTypes from "prop-types";
 
+
+// The BookCard function component 
 export const MovieCard = ({ movie, onMovieClick }) => {
     return (
         <div
@@ -11,6 +15,20 @@ export const MovieCard = ({ movie, onMovieClick }) => {
         </div>
     );
 };
+
+
+// Here is where we define all the props constraints for the BookCard
+
+MovieCard.propTypes = {
+    movie: PropTypes.shape({
+        Title: PropTypes.string,
+        Imagepath: PropTypes.string.isRequired,
+        Director: PropTypes.string
+    }).isRequired,
+    onMovieClick: PropTypes.func.isRequired
+};
+
+
 
 
 // 2 options

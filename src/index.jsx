@@ -21,6 +21,10 @@ const root = createRoot(container);
 root.render(<App />);
 
 
+// parcel src/index.html
+
+// look at: http://localhost:1234/
+
 
 // TEST ELEMENTS
 
