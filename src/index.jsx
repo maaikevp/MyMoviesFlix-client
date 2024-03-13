@@ -5,6 +5,7 @@ import "./index.scss";
 
 import { MainView } from "./components/main-view/main-view";
 
+const React = require('react');
 
 // Main component (will eventually use all the others)
 const App = () => {
