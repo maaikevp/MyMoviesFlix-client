@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 
 import Container from 'react-bootstrap/Container';
+import React from 'react';
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import "./index.scss";
@@ -28,7 +29,7 @@ const root = createRoot(container);
 root.render(<App />);
 
 
-// parcel src/index.html
+// npx parcel src/index.html
 
 // look at: http://localhost:1234/
 

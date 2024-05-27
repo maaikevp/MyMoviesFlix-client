@@ -27,30 +27,10 @@ export const MovieCard = ({ movie }) => {
 MovieCard.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string,
-        Imagepath: PropTypes.string.isRequired,
-        Director: PropTypes.string
+        Imagepath: PropTypes.string, //.isRequired,
+        //Director: PropTypes.string
     }).isRequired,
-    onMovieClick: PropTypes.func.isRequired
+
 };
 
 
-
-
-// 2 options
-
-//  Accessing the props argument
-// export const BookCard = (props) => {
-//     return <div>{props.book.title}</div>;
-//   };
-
-
-//   Destructured the props argument
-// export const BookCard = ({ book }) => {
-//     return <div>{book.title}</div>;
-// };
-
-
-// old
-//   export const BookCard = () => {
-//     return <div>some title</div>;
-// };

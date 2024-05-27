@@ -4,17 +4,22 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { ProfileView } from "../profile-view/profile-view";
+
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 
 
+// parcel src/index.html
 
 
 export const MainView = () => {
     const storedUser = localStorage.getItem("user"); // JSON.parse(
     const storedToken = localStorage.getItem("token");
+    console.log("storedUser:", JSON.parse(storedUser));
+    // console.dir(storedUser, { depth: 1 });
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
@@ -60,9 +65,65 @@ export const MainView = () => {
             });
     }, [token]);
 
+    // Add Favorite Movie
+    const addFav = (_id) => {
+
+        fetch(`https://movieapionrender.onrender.com/users/${user.Username}/movies/${_id}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                key: "Access-Control-Allow-Credentials", value: "true",
+                key: "Access-Control-Allow-Origin", value: "*"
+            }
+        }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("Failed to add");
+            }
+        }).then((user) => {
+            if (user) {
+                localStorage.setItem('user', JSON.stringify(user));
+                setUser(user);
+                //setIsFavorite(true);
+            }
+        }).catch(error => {
+            console.error('Error: ', error);
+        });
+    };
+
+    // Remove Favorite Movie
+    const removeFav = (_id) => {
+
+        fetch(`https://movieapionrender.onrender.com/users/${user.Username}/movies/${_id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                key: "Access-Control-Allow-Credentials", value: "true",
+                key: "Access-Control-Allow-Origin", value: "*"
+            }
+        }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("Failed to remove")
+            }
+        }).then((user) => {
+            if (user) {
+                localStorage.setItem('user', JSON.stringify(user));
+                setUser(user);
+                //setIsFavorite(false);
+            }
+        }).catch(error => {
+            console.error('Error: ', error);
+        });
+    };
+
     return (
         <BrowserRouter>
             <NavigationBar user={user}
+                // query={searchQuery}
+                // handleSearch={handleSearch}
                 onLoggedOut={() => {
                     setUser(null);
                     setToken(null)
@@ -92,7 +153,13 @@ export const MainView = () => {
                                     <Navigate to="/" />
                                 ) : (
                                     <Col md={5}>
-                                        <LoginView onLoggedIn={(user) => setUser(user)} />
+                                        {/* <LoginView onLoggedIn={(user) => setUser(user)} /> */}
+                                        <LoginView
+                                            onLoggedIn={(user, token) => {
+                                                setUser(user);
+                                                setToken(token);
+                                            }}
+                                        />
                                     </Col>
                                 )}
                             </>
@@ -125,11 +192,32 @@ export const MainView = () => {
                                 ) : (
                                     <>
                                         {movies.map((movie) => (
-                                            <Col className="mb-4" key={movie.id} md={3}>
+                                            <Col className="mb-4" key={movie._id} md={3}>
                                                 <MovieCard movie={movie} />
                                             </Col>
                                         ))}
                                     </>
+                                )}
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <Col md={8}>
+                                        <ProfileView
+                                            user={user}
+                                            movies={movies}
+                                            // removeFav={removeFav}
+                                            // addFav={addFav}
+                                            setUser={setUser}
+                                            token={token}  // put there myself
+                                        />
+                                    </Col>
                                 )}
                             </>
                         }

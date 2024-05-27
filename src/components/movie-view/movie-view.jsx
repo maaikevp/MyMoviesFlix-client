@@ -1,5 +1,6 @@
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import React from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -44,3 +45,11 @@ export const MovieView = ({ movies }) => {
         </div>
     );
 };
+// MovieView.propTypes = {
+//     Movies: PropTypes.shape({
+//         Title: PropTypes.string,
+//         Description: PropTypes.string,
+//         Genre: PropTypes.string,
+//         Director: PropTypes.string,
+//     }).isRequired
+// };
