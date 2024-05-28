@@ -28,9 +28,9 @@ export const FavoriteMovies = ({ user, favoriteMovies }) => {
               <Col sm={7} md={5} lg={3} xl={2} className="mb-4" key={movie._id}>
                 <MovieCard
                   movie={movie}
-                // removeFav={removeFav}
-                // addFav={addFav}
-                // isFavorite={user.FavoriteMovies.includes(movie._id)}
+                  removeFav={removeFav}
+                  addFav={addFav}
+                  isFavorite={favoriteMovieList.includes(movie._id)}
                 />
               </Col>
             ))

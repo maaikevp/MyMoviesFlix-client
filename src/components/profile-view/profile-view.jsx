@@ -5,14 +5,15 @@ import { Col, Row, Container } from "react-bootstrap";
 import { Button, Card, Form } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 import moment from 'moment';
+// import { FavoriteMovies } from "./favorite-movies";
 
 // import PropTypes from "prop-types";
 
 import { UpdateUser } from "./update-user";
-import { UserInfo } from "./user-info";
 
 
-export const ProfileView = ({ token, user, movies, setUser }) => {
+
+export const ProfileView = ({ token, user, movies, setUser, removeFav, addFav }) => {
 
   // CURRENT USER DETAILS
 
@@ -27,10 +28,11 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
 
   const favoriteMovies = User.FavoriteMovies;
   //const favoriteMovies = movies.filter(m => user.FavoriteMovies.includes(m.title));
+  // Return list of favorite Movies
+  // const favoriteMovieList = movies.filter(m => User.FavoriteMovies.includes(m._id));
 
   console.log("email:", email);
   console.log("username", username);
-
 
 
   //  CHANGE USER DETAILS 
@@ -53,7 +55,7 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
 
 
     // Send updated user information to the server, endpoint /users/:username
-    fetch(`https://testingmovie-apionrender.onrender.com/users/${username}`, {
+    fetch(`https://movieapi-production-3a3c.up.railway.app//users/${username}`, {
       method: "PUT",
       body: JSON.stringify(formData),
       headers: {
@@ -152,6 +154,34 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
 
       </Row>
 
+      {/* favorite movies */}
+
+      {/* <Row className="justify-content-center">
+        {
+          favoriteMovies?.length !== 0 ?
+            favoriteMovies?.map((movie) => (
+              <Col sm={7} md={5} lg={3} xl={2} className="mx-2 mt-2 mb-5 col-6 similar-movies-img" key={movie._id}>
+                <MovieCard
+                  movie={movie}
+                  removeFav={removeFav}
+                  addFav={addFav}
+                  setIsFavorite={User.FavoriteMovies.includes(movie._id)}
+                />
+              </Col>
+            ))
+            : <Col>
+              <p>There are no favorites Movies</p>
+            </Col>
+        }
+      </Row> */}
+
+      {/* <Row>
+        <Col className="mb-5" xs={12} md={9}>
+          <FavoriteMovies
+            user={user}
+            favoriteMovies={favoriteMovies} />
+        </Col>
+      </Row> */}
 
 
 

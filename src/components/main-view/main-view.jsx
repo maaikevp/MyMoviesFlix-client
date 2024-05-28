@@ -18,12 +18,16 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 export const MainView = () => {
     const storedUser = localStorage.getItem("user"); // JSON.parse(
     const storedToken = localStorage.getItem("token");
-    console.log("storedUser:", JSON.parse(storedUser));
-    // console.dir(storedUser, { depth: 1 });
+    //console.log("storedUser:", JSON.parse(storedUser));
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
+    // console.log("user favs", user.FavoriteMovies);
+    // console.log("user", user.Username);
+    let User = JSON.parse(storedUser);
+    // console.log("user favs", User.FavoriteMovies);
+    // console.log("user", User.Username);
 
 
     // rest of the code
@@ -35,7 +39,7 @@ export const MainView = () => {
             return;
         }
 
-        fetch("https://testingmovie-apionrender.onrender.com/movies", {
+        fetch("https://movieapi-production-3a3c.up.railway.app/movies", {
             headers:
             {
                 Authorization: `Bearer ${token}`,
@@ -62,22 +66,28 @@ export const MainView = () => {
                     };
                 });
                 setMovies(moviesFromApi);
+
             });
     }, [token]);
 
+
+
     // Add Favorite Movie
+
     const addFav = (_id) => {
 
-        fetch(`https://movieapionrender.onrender.com/users/${user.Username}/movies/${_id}`, {
+        fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${token}`,
-                key: "Access-Control-Allow-Credentials", value: "true",
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                //key: "Access-Control-Allow-Credentials", value: "true",
                 key: "Access-Control-Allow-Origin", value: "*"
             }
         }).then((response) => {
             if (response.ok) {
+                console.log('response', response) //json.stringify
                 return response.json();
+
             } else {
                 alert("Failed to add");
             }
@@ -85,21 +95,41 @@ export const MainView = () => {
             if (user) {
                 localStorage.setItem('user', JSON.stringify(user));
                 setUser(user);
-                //setIsFavorite(true);
+                setIsFavorite(true);
             }
         }).catch(error => {
             console.error('Error: ', error);
         });
     };
 
+    //     }).then((response) => {
+    //         if (response.ok) {
+    //             console.log('response', json.stringify(response))
+    //             return response.json();
+    //         }
+    //     }).then((data) => {
+    //         console.log('data:', data);
+    //         let setIsFavorite = User.FavoriteMovies.includes(_id);
+    //         User.FavoriteMovies.push(_id);
+    //         setIsFavorite(true);
+    //         // localStorage.setItem('user', JSON.stringify(user));
+    //         setUser(data);
+    //     })
+    //         .catch(error => {
+    //             console.error('Error: ', error);
+    //         });
+    // };
+
+
+
     // Remove Favorite Movie
     const removeFav = (_id) => {
 
-        fetch(`https://movieapionrender.onrender.com/users/${user.Username}/movies/${_id}`, {
+        fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`,
-                key: "Access-Control-Allow-Credentials", value: "true",
+                // key: "Access-Control-Allow-Credentials", value: "true",
                 key: "Access-Control-Allow-Origin", value: "*"
             }
         }).then((response) => {
@@ -112,7 +142,7 @@ export const MainView = () => {
             if (user) {
                 localStorage.setItem('user', JSON.stringify(user));
                 setUser(user);
-                //setIsFavorite(false);
+                setIsFavorite(false);
             }
         }).catch(error => {
             console.error('Error: ', error);
@@ -175,7 +205,10 @@ export const MainView = () => {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <Col md={8}>
-                                        <MovieView movies={movies} />
+                                        <MovieView
+                                            movies={movies}
+                                            removeFav={removeFav}
+                                            addFav={addFav} />
                                     </Col>
                                 )}
                             </>
@@ -193,7 +226,12 @@ export const MainView = () => {
                                     <>
                                         {movies.map((movie) => (
                                             <Col className="mb-4" key={movie._id} md={3}>
-                                                <MovieCard movie={movie} />
+                                                <MovieCard
+                                                    movie={movie}
+                                                    removeFav={removeFav}
+                                                    addFav={addFav}
+                                                    setIsFavorite={User.FavoriteMovies.includes(movie._id)}
+                                                />
                                             </Col>
                                         ))}
                                     </>
@@ -212,10 +250,11 @@ export const MainView = () => {
                                         <ProfileView
                                             user={user}
                                             movies={movies}
-                                            // removeFav={removeFav}
-                                            // addFav={addFav}
                                             setUser={setUser}
-                                            token={token}  // put there myself
+                                            token={token}
+                                        // removeFav={removeFav}
+                                        // addFav={addFav}
+                                        // setIsFavorite={User.FavoriteMovies.includes(movie._id)}
                                         />
                                     </Col>
                                 )}
@@ -229,3 +268,63 @@ export const MainView = () => {
 };
 
 
+//     fetch(`https://movieapionrender.onrender.com/users/${user.Username}/movies/${_id}`, {
+//         method: "POST",
+//         headers: {
+//             Authorization: `Bearer ${localStorage.getItem('token')}`,
+//             //key: "Access-Control-Allow-Credentials", value: "true",
+//             key: "Access-Control-Allow-Origin", value: "*"
+//         }
+//     }).then((response) => {
+//         if (response.ok) {
+//             console.log('response', json.stringify(response))
+//             return response.json();
+
+//         } else {
+//             alert("Failed to add");
+//         }
+//     }).then((user) => {
+//         if (user) {
+//             localStorage.setItem('user', JSON.stringify(user));
+//             setUser(user);
+//             setIsFavorite(true);
+//         }
+//     }).catch(error => {
+//         console.error('Error: ', error);
+//     });
+// };
+
+
+// Add Favorite Movie
+
+
+
+
+// const addFav = (_id) => {
+//     if (!token) {
+//         return;
+//     }
+//     fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             'Accept': 'application/json',
+//             body: JSON.stringify({}),
+//             Authorization: `Bearer ${token}`,
+//             key: "Access-Control-Allow-Credentials", value: "true",
+//             key: "Access-Control-Allow-Origin", value: "*"
+//         }
+//     }).then((response) => response.json())
+//         .then((data) => {
+//             alert("Movie added to favorites!");
+//             let movie = movies.find((movie) => movie._id === movieId);
+//             let setIsFavorite = User.FavoriteMovies.includes(movie._id);
+//             setUser({ ...user, FavoriteMovies: data.FavoriteMovies });
+//             setIsFavorite(true);
+//         })
+//         .catch((e) => {
+//             console.log(e);
+//             alert("error adding Movie to favorites!");
+//         });
+
+// };
