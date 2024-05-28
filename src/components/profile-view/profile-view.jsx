@@ -6,6 +6,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 import moment from 'moment';
 // import { FavoriteMovies } from "./favorite-movies";
+import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
 
 // import PropTypes from "prop-types";
 
@@ -13,7 +14,7 @@ import { UpdateUser } from "./update-user";
 
 
 
-export const ProfileView = ({ token, user, movies, setUser, removeFav, addFav }) => {
+export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => {
 
   // CURRENT USER DETAILS
 
@@ -26,13 +27,19 @@ export const ProfileView = ({ token, user, movies, setUser, removeFav, addFav })
   const [birthday, setBirthday] = useState(User.Birthday);  // 
   const [password, setPassword] = useState();
 
-  const favoriteMovies = User.FavoriteMovies;
-  //const favoriteMovies = movies.filter(m => user.FavoriteMovies.includes(m.title));
+  let favoriteMovies = User.FavoriteMovies;
+
   // Return list of favorite Movies
-  // const favoriteMovieList = movies.filter(m => User.FavoriteMovies.includes(m._id));
+  let favoriteMovieList = movies.filter(m => favoriteMovies.includes(m._id));
+
 
   console.log("email:", email);
+  console.log("movies:", movies);
   console.log("username", username);
+  console.log("favoriteMovies", favoriteMovies);
+  // const updatedFavoriteMovies = movies.filter((movie) =>
+  //   favoriteMovies.includes(movie.id);
+  console.log("favoriteMovieList", favoriteMovieList)
 
 
   //  CHANGE USER DETAILS 
@@ -50,8 +57,6 @@ export const ProfileView = ({ token, user, movies, setUser, removeFav, addFav })
     event.preventDefault(event);
 
     console.log("username", user.Username);
-
-
 
 
     // Send updated user information to the server, endpoint /users/:username
@@ -126,6 +131,68 @@ export const ProfileView = ({ token, user, movies, setUser, removeFav, addFav })
     })
   }
 
+  // Add Favorite Movie
+
+  const addFav = (_id) => {
+
+    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        //key: "Access-Control-Allow-Credentials", value: "true",
+        key: "Access-Control-Allow-Origin", value: "*"
+      }
+    }).then((response) => {
+      if (response.ok) {
+        console.log('response', response) //json.stringify
+        return response.json();
+
+      } else {
+        alert("Failed to add");
+      }
+    }).then((user) => {
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
+        setIsFavorite(true);
+      }
+    }).catch(error => {
+      console.error('Error: ', error);
+    });
+  };
+
+
+
+
+
+  // Remove Favorite Movie
+  const removeFav = (_id) => {
+
+    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // key: "Access-Control-Allow-Credentials", value: "true",
+        key: "Access-Control-Allow-Origin", value: "*"
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        alert("Failed to remove")
+      }
+    }).then((user) => {
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
+        setIsFavorite(false);
+      }
+    }).catch(error => {
+      console.error('Error: ', error);
+    });
+  };
+
+
   return (
     <>
       <Row>
@@ -155,25 +222,30 @@ export const ProfileView = ({ token, user, movies, setUser, removeFav, addFav })
       </Row>
 
       {/* favorite movies */}
-
-      {/* <Row className="justify-content-center">
+      <div>
+        <h1>Favorite movies</h1>
+      </div>
+      <Row className="justify-content-center">
         {
-          favoriteMovies?.length !== 0 ?
-            favoriteMovies?.map((movie) => (
-              <Col sm={7} md={5} lg={3} xl={2} className="mx-2 mt-2 mb-5 col-6 similar-movies-img" key={movie._id}>
+          // let movies = movies.filter(m => favoriteMovies.includes(m._id));     
+          // const movies = favoriteMovieList;  
+          favoriteMovieList?.length !== 0 ?
+            favoriteMovieList?.map((movie) => (
+              <Col sm={7} md={5} lg={3} xl={2} className="mx-2 mt-2 mb-5 col-6 similar-movies-img" key={movie._id}  >
                 <MovieCard
                   movie={movie}
                   removeFav={removeFav}
                   addFav={addFav}
                   setIsFavorite={User.FavoriteMovies.includes(movie._id)}
                 />
+
               </Col>
             ))
             : <Col>
               <p>There are no favorites Movies</p>
             </Col>
         }
-      </Row> */}
+      </Row>
 
       {/* <Row>
         <Col className="mb-5" xs={12} md={9}>
