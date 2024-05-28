@@ -5,14 +5,12 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
 
-import { ProfileView } from "../profile-view/profile-view";
-
 import "./movie-card.scss";
 
 
 export const MovieCard = ({ movie, addFav, removeFav, setIsFavorite }) => {
     return (
-        <Card className="h-100 card-deck">
+        <Card className="h-100 card-deck bg-light p-1" >
             <Card.Img src={movie.ImagePath} variant="top" className="card-img" alt="movie cover" /> <br></br>
             <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>

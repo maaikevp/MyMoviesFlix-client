@@ -18,7 +18,7 @@ export const MovieView = ({ movies }) => {
 
 
     return (
-        <div>
+        <div className="bg-light p-3 m-3">
             <div>
                 <img src={movie.ImagePath} alt="movie cover" className="card-image" />
             </div>

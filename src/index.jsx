@@ -13,11 +13,13 @@ import { MainView } from "./components/main-view/main-view";
 
 const App = () => {
     return (
-        <Container style={{ border: "1px solid red" }}>
+        <Container >
             <MainView />
         </Container>
     );
 };
+
+// style={{ border: "1px solid red" }}
 
 // Finds the root of your app
 const container = document.querySelector("#root");

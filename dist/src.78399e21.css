@@ -80,8 +80,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: rgb(248, 248, 230);
-  --bs-body-bg-rgb: 248, 248, 230;
+  --bs-body-bg: rgb(215, 231, 157);
+  --bs-body-bg-rgb: 215, 231, 157;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
@@ -2456,10 +2456,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px rgb(248, 248, 230), 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
+  box-shadow: 0 0 0 1px rgb(215, 231, 157), 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
 }
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px rgb(248, 248, 230), 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
+  box-shadow: 0 0 0 1px rgb(215, 231, 157), 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
 }
 .form-range::-moz-focus-outer {
   border: 0;
@@ -11846,6 +11846,11 @@ textarea.form-control-lg {
 }
 .my-flix {
   color: steelblue;
+}
+
+.card-title {
+  margin-bottom: 0.75rem;
+  font-size: 23px;
 }
 
 @media all and (max-width: 500px) {

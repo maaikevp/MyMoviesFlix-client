@@ -1,5 +1,7 @@
 $primary: SeaGreen;
-$body-bg: rgb(248, 248, 230);
+$body-bg: rgb(215, 231, 157);
+
+// rgb(204, 231, 106);
 
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
@@ -8,6 +10,11 @@ $color: steelblue;
 
 .my-flix {
     color: $color;
+}
+
+.card-title {
+    margin-bottom: .75rem;
+    font-size: 23px;
 }
 
 

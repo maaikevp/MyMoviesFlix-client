@@ -47,7 +47,7 @@ export const LoginView = ({ onLoggedIn }) => {
 
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="bg-light p-3">
             <Form.Group controlId="formUsername">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control
@@ -70,9 +70,11 @@ export const LoginView = ({ onLoggedIn }) => {
                 // placeholder="Enter your password"
                 />
             </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
+            <div className="pt-3">
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </div>
         </Form>
     );
 };

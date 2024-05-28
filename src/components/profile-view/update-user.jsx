@@ -9,9 +9,9 @@ import Row from "react-bootstrap/Row";
 export const UpdateUser = ({ formData, handleUpdate, handleSubmit }) => {
     return (
         <Row>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="bg-light p-4">
                 <br />
-                <h2> Would you like to update your profile information? </h2>
+                <h4> Would you like to update your profile information? </h4>
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
                     <Form.Control

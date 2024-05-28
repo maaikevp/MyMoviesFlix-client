@@ -5,8 +5,6 @@ import { Col, Row, Container } from "react-bootstrap";
 import { Button, Card, Form } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 import moment from 'moment';
-// import { FavoriteMovies } from "./favorite-movies";
-import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
 
 // import PropTypes from "prop-types";
 
@@ -195,11 +193,11 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
 
   return (
     <>
-      <Row>
+      <Row className="mt-2 mb-3 bg-light p-3">
 
         {/* Profile Information */}
         <Col md={12}>
-          <Card className="mt-2 mb-3">
+          <Card className="mt-2 mb-3 bg-light ">
             <Card.Body>
               <Card.Title>Profile Information</Card.Title>
               <p>Name: {username}</p>
@@ -216,14 +214,16 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
             handleUpdate={handleUpdate}
             handleSubmit={handleSubmit}
           />
-          <Button onClick={handleDelete} className="mt-1 bg-danger border-danger text-white">Delete User</Button>
+          <div className="ml-5 p-2">
+            <Button onClick={handleDelete} className="ml-5 pl-5 bg-danger border-danger text-white pull-right" class="btn-group-vertical">Delete User</Button>
+          </div>
         </Col>
 
       </Row>
 
       {/* favorite movies */}
       <div>
-        <h1>Favorite movies</h1>
+        <h4>Favorite movies</h4>
       </div>
       <Row className="justify-content-center">
         {
@@ -231,8 +231,8 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
           // const movies = favoriteMovieList;  
           favoriteMovieList?.length !== 0 ?
             favoriteMovieList?.map((movie) => (
-              <Col sm={7} md={5} lg={3} xl={2} className="mx-2 mt-2 mb-5 col-6 similar-movies-img" key={movie._id}  >
-                <MovieCard
+              <Col lg={3} className="mx-2 mt-2 mb-5 col-6 p-1" key={movie._id}  >
+                <MovieCard className="h-100 card-deck"
                   movie={movie}
                   removeFav={removeFav}
                   addFav={addFav}
@@ -247,21 +247,14 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
         }
       </Row>
 
-      {/* <Row>
-        <Col className="mb-5" xs={12} md={9}>
-          <FavoriteMovies
-            user={user}
-            favoriteMovies={favoriteMovies} />
-        </Col>
-      </Row> */}
-
+      {/* spare old styling */}
+      {/* className="mx-2 mt-2 mb-5 col-6 p-1 similar-movies-img" */}
+      {/* sm={7} md={5} lg={3} xl={2} */}
 
 
     </>
   );
 }
-
-
 
 //   ProfileView.propTypes = {
 //   //  localUser: PropTypes.object.isRequired,

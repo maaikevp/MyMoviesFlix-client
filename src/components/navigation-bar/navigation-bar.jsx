@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar bg="light" expand="lg">
-      <Container>
+    <Navbar bg="light" expand="lg" className="bg-light m-3">
+      <Container className="bg-white m-1">
         <Navbar.Brand as={Link} to="/">
           Myflix App
         </Navbar.Brand>
