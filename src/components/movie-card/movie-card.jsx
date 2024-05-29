@@ -15,7 +15,7 @@ export const MovieCard = ({ movie, addFav, removeFav, setIsFavorite }) => {
             <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
                 {/* <Card.Text>{movie.Genre.Name}</Card.Text> */}
-                <Link to={`/movies/${encodeURIComponent(movie._id)}`}><Button variant="link">Open</Button>
+                <Link to={`/movies/${encodeURIComponent(movie._id)}`}><Button variant="link" className="bg-primary float-end link-underline-primary text-white btn-lg float-end">Open</Button>
                 </Link>
                 <div>
                     {setIsFavorite ? (
