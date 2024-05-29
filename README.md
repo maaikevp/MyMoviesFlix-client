@@ -21,4 +21,4 @@ The MyFlix REST API is the server-side component of this MovieAPI web applicatio
 
 Versions: React: 18.2.0, React-Bootstrap: 2.10.2, parcel-bundler: 1.12.5
 
-![MyFlix-movies-screenshot](/Meet-app-screenshot.JPG)
+![MyFlix-movies-screenshot](/MyFlix-movies-screenshot.JPG)
