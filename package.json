@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.11.0",
+    "parcel": "^2.11.0",
     "parcel-bundler": "^1.12.5",
     "process": "^0.11.10",
     "prop-types": "^15.8.1"
