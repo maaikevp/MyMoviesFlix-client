@@ -215,7 +215,7 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
             handleSubmit={handleSubmit}
           />
           <div className="ml-5 p-2">
-            <Button onClick={handleDelete} className="ml-5 pl-5 bg-danger border-danger text-white pull-right" class="btn-group-vertical">Delete User</Button>
+            <Button onClick={handleDelete} className="ml-5 pl-5 bg-danger border-danger text-white pull-right">Delete User</Button>
           </div>
         </Col>
 

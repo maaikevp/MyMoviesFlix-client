@@ -1,10 +1,10 @@
 import React from "react";
-import { Navbar, Container, Nav, Row, Col, Form } from "react-bootstrap";
+import { Navbar, Container, Nav, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = ({ user, onLoggedOut, query, handleSearch, movies }) => {
   return (
     <Navbar bg="light" expand="lg" className="bg-light m-3">
       <Container className="bg-white m-1">
@@ -34,11 +34,38 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                 {/* <Link to={`/users/${encodeURIComponent(user.Username)}`}><Button variant="link">Open</Button> */}
                 <Nav.Link onClick={onLoggedOut}>
                   Logout</Nav.Link>
-
               </>
             )}
           </Nav>
-          {/* <Routes>
+          {user && (
+            <div className="d-flex align-items-center">
+              <Form inline>
+                <div className="search-bar p-2">
+                  <Form.Control
+                    type="text"
+                    placeholder="Search movies..."
+                    value={query}
+                    onChange={(e) => handleSearch(e)}
+                  />
+                </div>
+              </Form>
+              <div className="link-color ml-3">
+                <Button variant="outline-secondary" type="submit" className="submit-button p-2 bg-primary text-white border-info" size="sm" onClick={handleSearch}>
+                  Search
+                </Button>
+              </div>
+            </div>
+          )}
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  )
+};
+
+
+
+
+{/* <Routes>
             <Route
               path="/"
               element={
@@ -55,10 +82,17 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
               }
             />
           </Routes> */}
-        </Navbar.Collapse>
+
+{/* </Navbar.Collapse>
       </Container>
-    </Navbar>
-  );
-};
+    </Navbar> */}
+
+
 
 {/* // to={`/profile/${user.Username}`}> */ }
+
+
+
+
+
+

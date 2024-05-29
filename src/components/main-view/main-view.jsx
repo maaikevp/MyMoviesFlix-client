@@ -21,6 +21,8 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
+    const [filteredMovies, setFilteredMovies] = useState([]);
+    const [query, setQuery] = useState("");
     let User = JSON.parse(storedUser);
 
     // console.log("user favs", user.FavoriteMovies);
@@ -64,11 +66,34 @@ export const MainView = () => {
                     };
                 });
                 setMovies(moviesFromApi);
-
+                setFilteredMovies(moviesFromApi);
             });
     }, [token]);
 
 
+    // Search function
+
+    const handleSearch = (e) => {
+
+        let query = e.target.value;
+        let storedMovies = movies;
+        setQuery(query);
+        console.log("Searchbar value: ", query);
+        console.log("Stored movies: ", storedMovies);
+
+        //Filter movies by title and genre
+        let filteredMovies = storedMovies.filter((movie) => {
+            // Check if the movie's title or genre includes the search query
+            return (
+                movie.Title.toLowerCase().includes(query.toLowerCase()) ||
+                movie.Genre.Name.toLowerCase().includes(query.toLowerCase()) ||
+                movie.Director.Name.toLowerCase().includes(query.toLowerCase())
+            );
+        });
+        console.log("Filtered movies: ", filteredMovies);
+        //Update the state with the filtered movies
+        setFilteredMovies(filteredMovies);
+    };
 
     // Add Favorite Movie
 
@@ -131,8 +156,8 @@ export const MainView = () => {
     return (
         <BrowserRouter>
             <NavigationBar user={user}
-                // query={searchQuery}
-                // handleSearch={handleSearch}
+                query={query}
+                handleSearch={handleSearch}
                 onLoggedOut={() => {
                     setUser(null);
                     setToken(null)
@@ -203,15 +228,16 @@ export const MainView = () => {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <>
-                                        {movies.map((movie) => (
-                                            <Col className="mb-4" key={movie._id} md={3}>
-                                                <MovieCard
+                                        {filteredMovies.map((movie) => (
+                                            <Col lg={3} className="mx-2 mt-2 mb-5 col-6 p-1" key={movie._id}  >
+                                                <MovieCard className="h-100 card-deck"
                                                     movie={movie}
                                                     removeFav={removeFav}
                                                     addFav={addFav}
                                                     setIsFavorite={User.FavoriteMovies.includes(movie._id)}
                                                 />
                                             </Col>
+
                                         ))}
                                     </>
                                 )}
@@ -224,6 +250,8 @@ export const MainView = () => {
                             <>
                                 {!user ? (
                                     <Navigate to="/login" replace />
+                                ) : query ? (
+                                    <Navigate to="/" replace />
                                 ) : (
                                     <Col md={8}>
                                         <ProfileView
