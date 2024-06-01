@@ -103,6 +103,7 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
         setBirthday(e.target.value);
       default:
     }
+    console.log('formData', formData);
   }
 
   // Delete account

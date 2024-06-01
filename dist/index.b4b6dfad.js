@@ -50336,7 +50336,7 @@ const ProfileView = ({ token, user, movies, setUser, setIsFavorite })=>{
         event.preventDefault(event);
         console.log("username", user.Username);
         // Send updated user information to the server, endpoint /users/:username
-        fetch(`https://movieapi-production-3a3c.up.railway.app//users/${username}`, {
+        fetch(`https://movieapi-production-3a3c.up.railway.app/users/${username}`, {
             method: "PUT",
             body: JSON.stringify(formData),
             headers: {
@@ -50379,6 +50379,7 @@ const ProfileView = ({ token, user, movies, setUser, setIsFavorite })=>{
                 setBirthday(e.target.value);
             default:
         }
+        console.log("formData", formData);
     };
     // Delete account
     // Delete User

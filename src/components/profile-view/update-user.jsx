@@ -67,6 +67,7 @@ export const UpdateUser = ({ formData, handleUpdate, handleSubmit }) => {
         </Row>
 
     );
+
 };
 
 // UpdateUser.propTypes = {
