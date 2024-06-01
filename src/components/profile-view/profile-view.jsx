@@ -11,7 +11,6 @@ import moment from 'moment';
 import { UpdateUser } from "./update-user";
 
 
-
 export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => {
 
   // CURRENT USER DETAILS
@@ -58,7 +57,7 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
 
 
     // Send updated user information to the server, endpoint /users/:username
-    fetch(`https://movieapi-production-3a3c.up.railway.app//users/${username}`, {
+    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${username}`, {
       method: "PUT",
       body: JSON.stringify(formData),
       headers: {
