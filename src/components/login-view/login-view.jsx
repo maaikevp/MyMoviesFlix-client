@@ -5,7 +5,15 @@ import Form from "react-bootstrap/Form";
 
 // const [token, setToken] = useState(null);
 
+// USER LOGIN -  Making the api call for the user login endpoint
+/**
+* Making the api call for the user login endpoint
+* @param {any} userDetails - User details for login.
+* @returns {Observable<any>} - Observable for the API response.
+*/
+
 export const LoginView = ({ onLoggedIn }) => {
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 

@@ -4,6 +4,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 
+// Making the api call for the user registration endpoint
+/**
+ * Making the api call for the user registration endpoint.
+ * @param {any} userDetails - User details for registration.
+ * @returns {Observable<any>} - Observable for the API response.
+ */
 export const SignupView = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
