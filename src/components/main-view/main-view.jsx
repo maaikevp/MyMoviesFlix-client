@@ -14,6 +14,12 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 
 // parcel src/index.html
 
+
+// GENERATE MAIN PAGE VIEW
+/**
+   * Making the api call for the Get All Movies endpoint
+  */
+
 export const MainView = () => {
     const storedUser = localStorage.getItem("user"); // JSON.parse(
     const storedToken = localStorage.getItem("token");
@@ -36,9 +42,10 @@ export const MainView = () => {
     useEffect(() => {
 
         /**
-         * Making the api call for the Get All Movies endpoint
-         * @returns {Observable<any>} - Observable for the API response.
-         */
+     * Making the api call for the Get All Movies endpoint
+     * @returns {Observable<any>} - Observable for the API response.
+     */
+
         if (!token) {
             return;
         }
@@ -76,7 +83,11 @@ export const MainView = () => {
 
 
     // Search function
-
+    /**
+     * Search function for Movies.
+     * @param {string} query - Searchquery
+     * @returns {Observable<any>} -resulting movies
+     */
     const handleSearch = (e) => {
 
         let query = e.target.value;
@@ -100,7 +111,12 @@ export const MainView = () => {
     };
 
     // Add Favorite Movie
-
+    /**
+   * Making the api call for the Add a Movie to Favourite Movies endpoint.
+   * @param {string} username - Users username for getting favorite Movies.
+   * @param {any} movieID - Movie for adding to favorite Movies.
+   * @returns {Observable<any>} - Observable for the API response.
+   */
     const addFav = (_id) => {
 
         fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
@@ -131,6 +147,12 @@ export const MainView = () => {
 
 
     // Remove Favorite Movie
+    /**
+   * Making the api call for the delete movie endpoint.
+   * @param {string} username - Users username for getting favorite Movies.
+   * @param {any} movieID - Movie for adding to favorite Movies.
+   * @returns {Observable<any>} - Observable for the API response.
+   */
     const removeFav = (_id) => {
 
         fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {

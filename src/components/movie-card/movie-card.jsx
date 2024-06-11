@@ -7,7 +7,10 @@ import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
 
 import "./movie-card.scss";
 
-
+/**
+   * Moviecard component
+   * @returns {Observable<any>} - Generates movie cards view
+   */
 export const MovieCard = ({ movie, addFav, removeFav, setIsFavorite }) => {
     return (
         <Card className="h-100 card-deck bg-light p-1" >

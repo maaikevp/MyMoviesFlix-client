@@ -6,6 +6,11 @@ import Row from "react-bootstrap/Row";
 
 // import PropTypes from "prop-types";
 
+/**
+   * Making the api call for the Edit User endpoint.
+   * @param {any} userDetails - User details for updating user information.
+   * @returns {Observable<any>} - Observable for the API response.
+   */
 export const UpdateUser = ({ formData, handleUpdate, handleSubmit }) => {
     return (
         <Row>

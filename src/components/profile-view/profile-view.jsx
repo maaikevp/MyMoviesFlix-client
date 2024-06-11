@@ -15,6 +15,10 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
 
   // CURRENT USER DETAILS
 
+  /**
+   * Making the localstorage call for the Get User details.
+   * @returns {Observable<any>} - Observable for the localstorage response.
+   */
   const storedUser = localStorage.getItem("user");
   console.log("storedUser-profile:", JSON.parse(storedUser));
   const User = JSON.parse(storedUser);
@@ -26,7 +30,12 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
 
   let favoriteMovies = User.FavoriteMovies;
 
+
   // Return list of favorite Movies
+  /**
+ * Making the localstorage call for the favorite movies endpoint.
+ * @returns {Observable<any>} - Observable for the localstorage response.
+ */
   let favoriteMovieList = movies.filter(m => favoriteMovies.includes(m._id));
 
 
@@ -57,6 +66,11 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
 
 
     // Send updated user information to the server, endpoint /users/:username
+    /**
+  * Making the api call for the Edit User endpoint.
+  * @param {any} formData - User details for updating user information.
+  * @returns {Observable<any>} - Observable for the API response.
+  */
     fetch(`https://movieapi-production-3a3c.up.railway.app/users/${username}`, {
       method: "PUT",
       body: JSON.stringify(formData),
@@ -106,8 +120,14 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
     console.log('formData', formData);
   }
 
-  // Delete account
+  console.log('formData', formData);
 
+
+  // Delete account
+  /**
+   * Making the api call for the Delete User endpoint
+   * @returns {Observable<any>} - Observable for the API response.
+   */
   // Delete User
   const handleDelete = () => {
     fetch(`https://testingmovie-apionrender.onrender.com/users/${username}`, {
@@ -130,7 +150,12 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
   }
 
   // Add Favorite Movie
-
+  /**
+   * Making the api call for the Add a Movie to Favourite Movies endpoint.
+   * @param {string} username - Users username for getting favorite Movies.
+   * @param {any} movieID - Movie for adding to favorite Movies.
+   * @returns {Observable<any>} - Observable for the API response.
+   */
   const addFav = (_id) => {
 
     fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
@@ -162,8 +187,15 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
 
 
 
-
   // Remove Favorite Movie
+
+  // Making the api call for the Delete a Movie to Favourite Movies endpoint
+  /**
+   * Making the api call for the delete movie endpoint.
+   * @param {string} username - Users username for getting favorite Movies.
+   * @param {any} movieID - Movie for adding to favorite Movies.
+   * @returns {Observable<any>} - Observable for the API response.
+   */
   const removeFav = (_id) => {
 
     fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
