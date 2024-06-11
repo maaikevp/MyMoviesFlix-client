@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: profile-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: profile-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Col, Row, Container } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
+import { MovieCard } from "../movie-card/movie-card";
+import moment from 'moment';
+
+// import PropTypes from "prop-types";
+
+import { UpdateUser } from "./update-user";
+
+
+export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => {
+
+  // CURRENT USER DETAILS
+
+  /**
+   * Making the localstorage call for the Get User details.
+   * @returns {Observable&lt;any>} - Observable for the localstorage response.
+   */
+  const storedUser = localStorage.getItem("user");
+  console.log("storedUser-profile:", JSON.parse(storedUser));
+  const User = JSON.parse(storedUser);
+
+  const [username, setUsername] = useState(User.Username);
+  const [email, setEmail] = useState(User.Email);
+  const [birthday, setBirthday] = useState(User.Birthday);  // 
+  const [password, setPassword] = useState();
+
+  let favoriteMovies = User.FavoriteMovies;
+
+
+  // Return list of favorite Movies
+  /**
+ * Making the localstorage call for the favorite movies endpoint.
+ * @returns {Observable&lt;any>} - Observable for the localstorage response.
+ */
+  let favoriteMovieList = movies.filter(m => favoriteMovies.includes(m._id));
+
+
+  console.log("email:", email);
+  console.log("movies:", movies);
+  console.log("username", username);
+  console.log("favoriteMovies", favoriteMovies);
+  // const updatedFavoriteMovies = movies.filter((movie) =>
+  //   favoriteMovies.includes(movie.id);
+  console.log("favoriteMovieList", favoriteMovieList)
+
+
+  //  CHANGE USER DETAILS 
+
+  const formData = {
+    UserName: username,
+    Email: email,
+    // Birthday: birthday,
+    Password: password
+  };
+
+  formData.Birthday = birthday ? new Date(birthday).toISOString().substring(0, 10) : null;
+
+  const handleSubmit = (event) => {
+    event.preventDefault(event);
+
+    console.log("username", user.Username);
+
+
+    // Send updated user information to the server, endpoint /users/:username
+    /**
+  * Making the api call for the Edit User endpoint.
+  * @param {any} formData - User details for updating user information.
+  * @returns {Observable&lt;any>} - Observable for the API response.
+  */
+    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${username}`, {
+      method: "PUT",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        key: "Access-Control-Allow-Credentials", value: "true",
+        key: "Access-Control-Allow-Origin", value: "*"
+      }
+    }
+    )
+      .then((response) => {
+        if (response.ok) {
+          alert("Update successful");
+          window.location.reload();
+          console.log(response)
+          return response.json()
+        }
+        alert("Update failed");
+      })
+      .then((user) => {
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          setUser(user)
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleUpdate = (e) => {
+    switch (e.target.type) {
+      case "text":
+        setUsername(e.target.value);
+        break;
+      case "email":
+        setEmail(e.target.value);
+        break;
+      case "password":
+        setPassword(e.target.value);
+        break;
+      case "date":
+        setBirthday(e.target.value);
+      default:
+    }
+    console.log('formData', formData);
+  }
+
+  console.log('formData', formData);
+
+
+  // Delete account
+  /**
+   * Making the api call for the Delete User endpoint
+   * @returns {Observable&lt;any>} - Observable for the API response.
+   */
+  // Delete User
+  const handleDelete = () => {
+    fetch(`https://testingmovie-apionrender.onrender.com/users/${username}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        key: "Access-Control-Allow-Credentials", value: "true",
+        key: "Access-Control-Allow-Origin", value: "*"
+      }
+    }).then((response) => {
+      if (response.ok) {
+        setUser(null);
+        alert("User has been deleted")
+        localStorage.clear();
+        navigate('/'); // go back to home page
+      } else {
+        alert("Something went wrong.")
+      }
+    })
+  }
+
+  // Add Favorite Movie
+  /**
+   * Making the api call for the Add a Movie to Favourite Movies endpoint.
+   * @param {string} username - Users username for getting favorite Movies.
+   * @param {any} movieID - Movie for adding to favorite Movies.
+   * @returns {Observable&lt;any>} - Observable for the API response.
+   */
+  const addFav = (_id) => {
+
+    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        //key: "Access-Control-Allow-Credentials", value: "true",
+        key: "Access-Control-Allow-Origin", value: "*"
+      }
+    }).then((response) => {
+      if (response.ok) {
+        console.log('response', response) //json.stringify
+        return response.json();
+
+      } else {
+        alert("Failed to add");
+      }
+    }).then((user) => {
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
+        setIsFavorite(true);
+      }
+    }).catch(error => {
+      console.error('Error: ', error);
+    });
+  };
+
+
+
+
+  // Remove Favorite Movie
+
+  // Making the api call for the Delete a Movie to Favourite Movies endpoint
+  /**
+   * Making the api call for the delete movie endpoint.
+   * @param {string} username - Users username for getting favorite Movies.
+   * @param {any} movieID - Movie for adding to favorite Movies.
+   * @returns {Observable&lt;any>} - Observable for the API response.
+   */
+  const removeFav = (_id) => {
+
+    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // key: "Access-Control-Allow-Credentials", value: "true",
+        key: "Access-Control-Allow-Origin", value: "*"
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        alert("Failed to remove")
+      }
+    }).then((user) => {
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
+        setIsFavorite(false);
+      }
+    }).catch(error => {
+      console.error('Error: ', error);
+    });
+  };
+
+
+  return (
+    &lt;>
+      &lt;Row className="mt-2 mb-3 bg-light p-3">
+
+        {/* Profile Information */}
+        &lt;Col md={12}>
+          &lt;Card className="mt-2 mb-3 bg-light ">
+            &lt;Card.Body>
+              &lt;Card.Title>Profile Information&lt;/Card.Title>
+              &lt;p>Name: {username}&lt;/p>
+              &lt;p>Email: {email}&lt;/p>
+              {/* &lt;p>Birthday: {birthday}&lt;/p> */}
+              &lt;p>Date of Birth: {moment(birthday).utc().format('YYYY-MM-DD')}&lt;/p>
+            &lt;/Card.Body>
+          &lt;/Card>
+        &lt;/Col>
+        {/* UPDATE USER */}
+        &lt;Col>
+          &lt;UpdateUser
+            formData={formData}
+            handleUpdate={handleUpdate}
+            handleSubmit={handleSubmit}
+          />
+          &lt;div className="ml-5 p-2">
+            &lt;Button onClick={handleDelete} className="ml-5 pl-5 bg-danger border-danger text-white pull-right">Delete User&lt;/Button>
+          &lt;/div>
+        &lt;/Col>
+
+      &lt;/Row>
+
+      {/* favorite movies */}
+      &lt;div>
+        &lt;h4>Favorite movies&lt;/h4>
+      &lt;/div>
+      &lt;Row className="justify-content-center">
+        {
+          // let movies = movies.filter(m => favoriteMovies.includes(m._id));     
+          // const movies = favoriteMovieList;  
+          favoriteMovieList?.length !== 0 ?
+            favoriteMovieList?.map((movie) => (
+              &lt;Col lg={3} className="mx-2 mt-2 mb-5 col-6 p-1" key={movie._id}  >
+                &lt;MovieCard className="h-100 card-deck"
+                  movie={movie}
+                  removeFav={removeFav}
+                  addFav={addFav}
+                  setIsFavorite={User.FavoriteMovies.includes(movie._id)}
+                />
+
+              &lt;/Col>
+            ))
+            : &lt;Col>
+              &lt;p>There are no favorites Movies&lt;/p>
+            &lt;/Col>
+        }
+      &lt;/Row>
+
+      {/* spare old styling */}
+      {/* className="mx-2 mt-2 mb-5 col-6 p-1 similar-movies-img" */}
+      {/* sm={7} md={5} lg={3} xl={2} */}
+
+
+    &lt;/>
+  );
+}
+
+//   ProfileView.propTypes = {
+//   //  localUser: PropTypes.object.isRequired,
+//     movies: PropTypes.array.isRequired,
+//     token: PropTypes.string.isRequired
+//   };
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#UpdateUser">UpdateUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Thu Jun 06 2024 14:20:08 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

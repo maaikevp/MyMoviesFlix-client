@@ -1,4 +1,32 @@
-import React from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
@@ -43,9 +71,8 @@ export const MainView = () => {
 
         /**
      * Making the api call for the Get All Movies endpoint
-     * @returns {Observable<any>} - Observable for the API response.
+     * @returns {Observable&lt;any>} - Observable for the API response.
      */
-
         if (!token) {
             return;
         }
@@ -86,7 +113,7 @@ export const MainView = () => {
     /**
      * Search function for Movies.
      * @param {string} query - Searchquery
-     * @returns {Observable<any>} -resulting movies
+     * @returns {Observable&lt;any>} -resulting movies
      */
     const handleSearch = (e) => {
 
@@ -115,7 +142,7 @@ export const MainView = () => {
    * Making the api call for the Add a Movie to Favourite Movies endpoint.
    * @param {string} username - Users username for getting favorite Movies.
    * @param {any} movieID - Movie for adding to favorite Movies.
-   * @returns {Observable<any>} - Observable for the API response.
+   * @returns {Observable&lt;any>} - Observable for the API response.
    */
     const addFav = (_id) => {
 
@@ -151,7 +178,7 @@ export const MainView = () => {
    * Making the api call for the delete movie endpoint.
    * @param {string} username - Users username for getting favorite Movies.
    * @param {any} movieID - Movie for adding to favorite Movies.
-   * @returns {Observable<any>} - Observable for the API response.
+   * @returns {Observable&lt;any>} - Observable for the API response.
    */
     const removeFav = (_id) => {
 
@@ -180,8 +207,8 @@ export const MainView = () => {
     };
 
     return (
-        <BrowserRouter>
-            <NavigationBar user={user}
+        &lt;BrowserRouter>
+            &lt;NavigationBar user={user}
                 query={query}
                 handleSearch={handleSearch}
                 onLoggedOut={() => {
@@ -189,98 +216,98 @@ export const MainView = () => {
                     setToken(null)
                     localStorage.clear()
                 }} />
-            <Row className="justify-content-md-center">
-                <Routes>
-                    <Route
+            &lt;Row className="justify-content-md-center">
+                &lt;Routes>
+                    &lt;Route
                         path="/signup"
                         element={
-                            <>
+                            &lt;>
                                 {user ? (
-                                    <Navigate to="/" />
+                                    &lt;Navigate to="/" />
                                 ) : (
-                                    <Col md={5}>
-                                        <SignupView />
-                                    </Col>
+                                    &lt;Col md={5}>
+                                        &lt;SignupView />
+                                    &lt;/Col>
                                 )}
-                            </>
+                            &lt;/>
                         }
                     />
-                    <Route
+                    &lt;Route
                         path="/login"
                         element={
-                            <>
+                            &lt;>
                                 {user ? (
-                                    <Navigate to="/" />
+                                    &lt;Navigate to="/" />
                                 ) : (
-                                    <Col md={5}>
-                                        {/* <LoginView onLoggedIn={(user) => setUser(user)} /> */}
-                                        <LoginView
+                                    &lt;Col md={5}>
+                                        {/* &lt;LoginView onLoggedIn={(user) => setUser(user)} /> */}
+                                        &lt;LoginView
                                             onLoggedIn={(user, token) => {
                                                 setUser(user);
                                                 setToken(token);
                                             }}
                                         />
-                                    </Col>
+                                    &lt;/Col>
                                 )}
-                            </>
+                            &lt;/>
                         }
                     />
-                    <Route
+                    &lt;Route
                         path="/movies/:movieId"
                         element={
-                            <>
+                            &lt;>
                                 {!user ? (
-                                    <Navigate to="/login" replace />
+                                    &lt;Navigate to="/login" replace />
                                 ) : movies.length === 0 ? (
-                                    <Col>The list is empty!</Col>
+                                    &lt;Col>The list is empty!&lt;/Col>
                                 ) : (
-                                    <Col md={8}>
-                                        <MovieView
+                                    &lt;Col md={8}>
+                                        &lt;MovieView
                                             movies={movies}
                                             removeFav={removeFav}
                                             addFav={addFav} />
-                                    </Col>
+                                    &lt;/Col>
                                 )}
-                            </>
+                            &lt;/>
                         }
                     />
-                    <Route
+                    &lt;Route
                         path="/"
                         element={
-                            <>
+                            &lt;>
                                 {!user ? (
-                                    <Navigate to="/login" replace />
+                                    &lt;Navigate to="/login" replace />
                                 ) : movies.length === 0 ? (
-                                    <Col>The list is empty!</Col>
+                                    &lt;Col>The list is empty!&lt;/Col>
                                 ) : (
-                                    <>
+                                    &lt;>
                                         {filteredMovies.map((movie) => (
-                                            <Col lg={3} className="mx-2 mt-2 mb-5 col-6 p-1" key={movie._id}  >
-                                                <MovieCard className="h-100 card-deck"
+                                            &lt;Col lg={3} className="mx-2 mt-2 mb-5 col-6 p-1" key={movie._id}  >
+                                                &lt;MovieCard className="h-100 card-deck"
                                                     movie={movie}
                                                     removeFav={removeFav}
                                                     addFav={addFav}
                                                     setIsFavorite={User.FavoriteMovies.includes(movie._id)}
                                                 />
-                                            </Col>
+                                            &lt;/Col>
 
                                         ))}
-                                    </>
+                                    &lt;/>
                                 )}
-                            </>
+                            &lt;/>
                         }
                     />
-                    <Route
+                    &lt;Route
                         path="/profile"
                         element={
-                            <>
+                            &lt;>
                                 {!user ? (
-                                    <Navigate to="/login" replace />
+                                    &lt;Navigate to="/login" replace />
                                 ) : query ? (
-                                    <Navigate to="/" replace />
+                                    &lt;Navigate to="/" replace />
                                 ) : (
-                                    <Col md={8}>
-                                        <ProfileView
+                                    &lt;Col md={8}>
+                                        &lt;ProfileView
                                             user={user}
                                             movies={movies}
                                             setUser={setUser}
@@ -289,15 +316,38 @@ export const MainView = () => {
                                         // addFav={addFav}
                                         // setIsFavorite={User.FavoriteMovies.includes(movie._id)}
                                         />
-                                    </Col>
+                                    &lt;/Col>
                                 )}
-                            </>
+                            &lt;/>
                         }
                     />
-                </Routes>
-            </Row>
-        </BrowserRouter>
+                &lt;/Routes>
+            &lt;/Row>
+        &lt;/BrowserRouter>
     );
 };
 
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#MainView">MainView</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Thu Jun 06 2024 14:17:57 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
