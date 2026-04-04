@@ -26,7 +26,7 @@ export const LoginView = ({ onLoggedIn }) => {
             Password: password
         };
 
-        fetch("https://movieapi-production-3a3c.up.railway.app/login", {
+        fetch("https://movieapi-production-3a3cee.up.railway.app/login", {
             method: "POST",
             headers: {
                 'Access-Control-Allow-Origin': '*',
