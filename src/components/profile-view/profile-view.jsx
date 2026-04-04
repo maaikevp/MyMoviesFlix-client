@@ -57,7 +57,7 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
 
 
     // Send updated user information to the server, endpoint /users/:username
-    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${username}`, {
+    fetch(`https://movieapi-production-3a3cee.up.railway.app/users/${username}`, {
       method: "PUT",
       body: JSON.stringify(formData),
       headers: {
@@ -133,7 +133,7 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
 
   const addFav = (_id) => {
 
-    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+    fetch(`https://movieapi-production-3a3cee.up.railway.app/users/${User.Username}/movies/${_id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -166,7 +166,7 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
   // Remove Favorite Movie
   const removeFav = (_id) => {
 
-    fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+    fetch(`https://movieapi-production-3a3cee.up.railway.app/users/${User.Username}/movies/${_id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

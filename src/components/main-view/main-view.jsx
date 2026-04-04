@@ -43,7 +43,7 @@ export const MainView = () => {
             return;
         }
 
-        fetch("https://movieapi-production-3a3c.up.railway.app/movies", {
+        fetch("https://movieapi-production-3a3cee.up.railway.app/movies", {
             headers:
             {
                 Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ export const MainView = () => {
 
     const addFav = (_id) => {
 
-        fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+        fetch(`https://movieapi-production-3a3cee.up.railway.app/users/${User.Username}/movies/${_id}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -133,7 +133,7 @@ export const MainView = () => {
     // Remove Favorite Movie
     const removeFav = (_id) => {
 
-        fetch(`https://movieapi-production-3a3c.up.railway.app/users/${User.Username}/movies/${_id}`, {
+        fetch(`https://movieapi-production-3a3cee.up.railway.app/users/${User.Username}/movies/${_id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`,
