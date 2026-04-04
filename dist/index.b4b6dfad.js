@@ -3045,7 +3045,7 @@ ${frame.code}`;
                         groupEnd: props
                     });
                     /* eslint-enable react-internal/no-production-logging */
-}
+                }
                 disabledDepth++;
             }
             function reenableLogs() {
@@ -3080,7 +3080,7 @@ ${frame.code}`;
                         })
                     });
                     /* eslint-enable react-internal/no-production-logging */
-}
+                }
                 if (disabledDepth < 0) error("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
             }
             var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
@@ -4905,7 +4905,7 @@ ${frame.code}`;
                         groupEnd: props
                     });
                     /* eslint-enable react-internal/no-production-logging */
-}
+                }
                 disabledDepth++;
             }
             function reenableLogs() {
@@ -4940,7 +4940,7 @@ ${frame.code}`;
                         })
                     });
                     /* eslint-enable react-internal/no-production-logging */
-}
+                }
                 if (disabledDepth < 0) error("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
             }
             var ReactCurrentDispatcher$1 = ReactSharedInternals.ReactCurrentDispatcher;
@@ -6347,7 +6347,7 @@ ${frame.code}`;
                         groupEnd: props
                     });
                     /* eslint-enable react-internal/no-production-logging */
-}
+                }
                 disabledDepth++;
             }
             function reenableLogs() {
@@ -6382,7 +6382,7 @@ ${frame.code}`;
                         })
                     });
                     /* eslint-enable react-internal/no-production-logging */
-}
+                }
                 if (disabledDepth < 0) error("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
             }
             var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
@@ -11756,7 +11756,7 @@ ${frame.code}`;
             /* eslint-disable no-unused-expressions */ anchorNode.nodeType;
                     focusNode.nodeType;
                     /* eslint-enable no-unused-expressions */
-} catch (e) {
+                } catch (e) {
                     return null;
                 }
                 return getModernOffsetsFromPoints(outerNode, anchorNode, anchorOffset, focusNode, focusOffset);
@@ -25432,7 +25432,7 @@ ${frame.code}`;
                     nonExtensibleObject
                 ]);
                 /* eslint-enable no-new */
-} catch (e) {
+            } catch (e) {
                 // TODO: Consider warning about bad polyfills
                 hasBadMapPolyfill = true;
             }
@@ -27386,7 +27386,7 @@ ${frame.code}`;
                         groupEnd: props
                     });
                     /* eslint-enable react-internal/no-production-logging */
-}
+                }
                 disabledDepth++;
             }
             function reenableLogs() {
@@ -27421,7 +27421,7 @@ ${frame.code}`;
                         })
                     });
                     /* eslint-enable react-internal/no-production-logging */
-}
+                }
                 if (disabledDepth < 0) error("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
             }
             var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
@@ -31099,7 +31099,7 @@ object-assign
             }
         } catch (e) {
             /* */
-}
+        }
 /**
  * An `addEventListener` ponyfill, supports the `once` option
  * 
@@ -36181,16 +36181,16 @@ object-assign
          * OF ANY KIND, either express or implied. See the License for the specific language
          * governing permissions and limitations under the License.
          */ /*
-        * Copyright 2020 Adobe. All rights reserved.
-        * This file is licensed to you under the Apache License, Version 2.0 (the "License");
-        * you may not use this file except in compliance with the License. You may obtain a copy
-        * of the License at http://www.apache.org/licenses/LICENSE-2.0
-        *
-        * Unless required by applicable law or agreed to in writing, software distributed under
-        * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
-        * OF ANY KIND, either express or implied. See the License for the specific language
-        * governing permissions and limitations under the License.
-        */ // We must avoid a circular dependency with @react-aria/utils, and this useLayoutEffect is
+       * Copyright 2020 Adobe. All rights reserved.
+       * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License. You may obtain a copy
+       * of the License at http://www.apache.org/licenses/LICENSE-2.0
+       *
+       * Unless required by applicable law or agreed to in writing, software distributed under
+       * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+       * OF ANY KIND, either express or implied. See the License for the specific language
+       * governing permissions and limitations under the License.
+       */ // We must avoid a circular dependency with @react-aria/utils, and this useLayoutEffect is
         // guarded by a check that it only runs on the client side.
         // eslint-disable-next-line rulesdir/useLayoutEffectRule
         // Default context value to use in case there is no SSRProvider. This is fine for
@@ -50481,7 +50481,7 @@ object-assign
                                         children: "Profile Information"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 202,
+                                        lineNumber: 204,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -50491,7 +50491,7 @@ object-assign
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 203,
+                                        lineNumber: 205,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -50501,7 +50501,7 @@ object-assign
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 204,
+                                        lineNumber: 206,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -50511,7 +50511,7 @@ object-assign
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 206,
+                                        lineNumber: 208,
                                         columnNumber: 15
                                     }, undefined)
                                     ]
@@ -50538,7 +50538,7 @@ object-assign
                                 handleSubmit: handleSubmit
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 212,
+                                lineNumber: 214,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -50549,12 +50549,12 @@ object-assign
                                     children: "Delete User"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 218,
+                                    lineNumber: 220,
                                     columnNumber: 13
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 217,
+                                lineNumber: 219,
                                 columnNumber: 11
                             }, undefined)
                             ]

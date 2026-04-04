@@ -10,7 +10,10 @@ import { MovieCard } from "../movie-card/movie-card";
 import "./movie-view.scss";
 import "../movie-card/movie-card.scss";
 
-
+/**
+   * Movieview component
+   * @returns {Observable<any>} - Generates movie details view
+   */
 export const MovieView = ({ movies }) => {
 
     const { movieId } = useParams();
