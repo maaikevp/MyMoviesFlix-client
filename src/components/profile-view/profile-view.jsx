@@ -110,7 +110,9 @@ export const ProfileView = ({ token, user, movies, setUser, setIsFavorite }) => 
         break;
       case "date":
         setBirthday(e.target.value);
+        break;
       default:
+        break;
     }
     console.log('formData', formData);
   }
